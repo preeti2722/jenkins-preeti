@@ -21,14 +21,20 @@ pipeline {
             }
         }
         
-        stage('quality'){
+        /*stage('quality'){
         	steps{
         	 	sh 'mvn sonar:sonar'
         	 	}
-        	} 	
+        	} */	
+        	
         stage('build') {
             steps {
             sh 'mvn package -DskipTests=true'  
+            }
+        }
+         stage('dockerize') {
+            steps {
+            sh 'docker build -t user-service:latest .'  
             }
         }
     }
