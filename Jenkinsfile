@@ -56,7 +56,7 @@ pipeline {
      post {
             always {
             sh "docker stop ${DOCKER_TMP_CONTAINER_NAME}"
-            sh "docker rmi ${DOCKER_IMG_NAME}:latest ${DOCKER_TMP_CONTAINER_NAME}: ${env.BUILD_ID}"
+            sh "docker rmi ${DOCKER_IMG_NAME}:latest ${DOCKER_IMG_NAME}:${env.BUILD_ID}"
             }
         }
     
