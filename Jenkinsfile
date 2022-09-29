@@ -47,7 +47,7 @@ pipeline {
             steps {
             echo 'running the tmp-user-service-container for integration testing..'
             sh 'docker run -dp 7070:8080 --rm --name ${DOCKER_TMP_CONTAINER_NAME} ${DOCKER_IMG_NAME}:latest' 
-            sleep 30
+            sleep 10
             sh 'curl -i http://localhost:7070/api/users'  
             }
         }
@@ -55,7 +55,8 @@ pipeline {
     }
      post {
             always {
-            sh 'docker stop ${DOCKER_TMP_CONTAINER_NAME}'  
+            sh 'docker stop ${DOCKER_TMP_CONTAINER_NAME}'
+            sh 'docker rmi ${DOCKER_IMG_NAME}:latest ${DOCKER_TMP_CONTAINER_NAME}: ${env.BUILD_ID}'
             }
         }
     
